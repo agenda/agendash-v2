@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 'use strict';
 const http = require('http');
-const Agenda = require('agenda');
+const { Agenda } = require('@hokify/agenda');
 const Hapi = require('@hapi/hapi');
 const program = require('commander');
 
@@ -24,7 +24,8 @@ const init = async () => {
       host: 'localhost'
   });
 
-  const agenda = new Agenda().database(program.db, program.collection);
+  const agenda = new Agenda();
+  await agenda.database(program.db, program.collection)
 
   await server.register(require('@hapi/inert'));
   await server.register(require('../app')(agenda, {
@@ -32,7 +33,7 @@ const init = async () => {
   }));
 
   await server.start();
-  console.log('Server running on %s', server.info.uri);
+  console.log('HAPI Server running on %s', server.info.uri);
 };
 
   process.on('unhandledRejection', (err) => {

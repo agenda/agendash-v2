@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 'use strict';
 const http = require('http');
-const Agenda = require('agenda');
+const { Agenda } = require('@hokify/agenda');
 const express = require('express');
 const program = require('commander');
 
@@ -19,7 +19,9 @@ if (!program.db) {
 
 const app = express();
 
-const agenda = new Agenda().database(program.db, program.collection);
+const agenda = new Agenda();
+agenda.database(program.db, program.collection);
+
 app.use('/', require('../app')(agenda, {
   title: program.title
 }));
@@ -28,5 +30,5 @@ app.set('port', program.port);
 
 const server = http.createServer(app);
 server.listen(program.port, () => {
-  console.log(`Agendash started http://localhost:${program.port}`);
+  console.log(`Express server running at http://localhost:${program.port}`);
 });
