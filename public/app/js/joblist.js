@@ -45,7 +45,7 @@ const jobList = Vue.component('job-list', {
       return console.log("received Clean Multi")
     },
     formatDate(date) {
-      return moment(date).fromNow();
+      return (date && moment(date).fromNow()) || '-';
       // return new Date(date).toLocaleDateString('en-US', { day: 'numeric', month: 'numeric', year: '2-digit', hour: "numeric", minute: "numeric", second: "numeric" })
     },
     checkAllCheckboxes(){
@@ -125,7 +125,7 @@ const jobList = Vue.component('job-list', {
                   <td class="job-lastRunAt"> {{ formatDate(job.job.lastRunAt) }} </td>
                   <td class="job-nextRunAt"> {{ formatDate(job.job.nextRunAt) }} </td>
                   <td class="job-finishedAt"> {{ formatDate(job.job.lastFinishedAt) }} </td>
-                  <td class="job-lockedAt"> {{ job.job.lockedAt ? formatDate(job.job.lockedAt) : "" }} </td>
+                  <td class="job-lockedAt"> {{ formatDate(job.job.lockedAt) }} </td>
                   <td class="job-actions">
                     <i class="material-icons md-dark md-custom action-btn viewData text-primary" data-toggle="modal" data-target="#modalRequeueSure" @click="$emit('confirm-requeue', job)" data-placement="left" title="Requeue">update</i>
                     <i class="material-icons md-dark md-custom action-btn viewData text-success" data-toggle="modal" data-target="#modalData" @click="$emit('show-job-detail', job)" data-placement="top" title="Job Data">visibility</i>
@@ -188,7 +188,7 @@ const jobList = Vue.component('job-list', {
                         Locked
                       </div>
                       <div>
-                        {{ job.job.lockedAt ? formatDate(job.job.lockedAt) : "-" }}
+                        {{ formatDate(job.job.lockedAt) }}
                       </div>
                     </div>
                   </div>
