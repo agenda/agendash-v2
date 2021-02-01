@@ -1,3 +1,5 @@
+**WARNING! This project was merged into the main [Agendash](https://github.com/agenda/agendash). This git repo is deprecated now.**
+
 # Agendash 2
 
 A modern, secure, and reliable dashboard for [Agenda](https://github.com/agenda/agenda) with search and pagination capabilities written in vue.js
